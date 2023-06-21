@@ -1,3 +1,6 @@
 PyMuPDF==1.18.17
 markdownify==0.10.0
 argparse==1.4.0
+langchain
+tiktoken
+openai

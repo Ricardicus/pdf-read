@@ -1,15 +1,18 @@
-import fitz
 import argparse
+
+import fitz
 from markdownify import markdownify as md
+
 
 def convert_pdf_to_txt(path):
     doc = fitz.open(path)
     full_text = ""
     for page_index in range(len(doc)):
+        full_text += f"document:{path} page:{page_index+1}\n"
         page = doc[page_index]
         text = page.get_text()
         images = page.get_image_info()
-        #print(f"Page {page_index+1}, images: {len(images) if images else 0}: {text}")
+        # print(f"Page {page_index+1}, images: {len(images) if images else 0}: {text}")
         """for block in blocks:
             print(block)
             print(images)
@@ -25,25 +28,28 @@ def convert_pdf_to_txt(path):
             blocks = page.get_text("blocks")
             for i, block in enumerate(blocks):
                 if block[6]:
-                    print(block[4])
-                    full_text += f"On page {page_index+1} of {path} there is an image. After the image, this text follows, it might be in reference to this image\n"
+                    # print(block[4])
+                    full_text += f"Here on page {page_index+1} of {path} is an image (the text that follows may or may not be in reference to this image):\n"
                 else:
                     if block[4].count("\n") > 2:
-                        print(block[4].split("\n"))
-                        string = " - ".join(filter(None,block[4].split("\n"))) + "\n"
+                        # print(block[4].split("\n"))
+                        string = " - ".join(filter(None, block[4].split("\n"))) + "\n"
                     else:
                         string = block[4]
                     full_text += f"{string}"
-                    
+        full_text += "======================\n"
+
     return full_text
+
 
 def convert_html_to_md(html_content):
     markdown_text = md(html_content)
     return markdown_text
 
+
 # create parser
 parser = argparse.ArgumentParser()
-parser.add_argument('--path', type=str, help='Path to the PDF file.')
+parser.add_argument("--path", type=str, help="Path to the PDF file.")
 
 # parse arguments
 args = parser.parse_args()
@@ -58,8 +64,8 @@ pdf_path = args.path
 
 # extract text from pdf
 pdf_text = convert_pdf_to_txt(pdf_path)
+print(pdf_text)
 
 # convert to markdown
-markdown_text = convert_html_to_md(pdf_text)
-print(markdown_text)
-
+# markdown_text = convert_html_to_md(pdf_text)
+# print(markdown_text)
