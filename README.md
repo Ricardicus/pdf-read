@@ -4,6 +4,7 @@ Provide a PDF document and generate a database with questions and answers with t
 
 ## Install
 
+I have only worked on this in a Linux environment. If you are on another system, you may need to fiddle a bit.
 This is a python project that comes with a requirements.txt file. You need Python 3.
 ```bash
 python3 -m venv venv
@@ -33,5 +34,8 @@ The files are GPT-4s attempt to condense a set of randomized questions.
 
 ## Generate answers
 ```bash
-python generate_answers.py --document path/to/text/document --questions outputs/questions_condensed.json --index outputs/indexes.json --answers outputs/answers.json
+python generate_answers.py --document path/to/text/document --questions outputs/questions_condensed_again.json 
 ```
+
+After it is done, check out "outputs/answers.json".
+Now, sometimes error occurs.. In order to prevent that from stopping the process of generating this database, run the generate_answers_loop.sh script..
