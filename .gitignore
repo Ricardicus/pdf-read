@@ -1,0 +1,5 @@
+# Place the docs here
+docs
+
+# Outputs from the program
+outputs/*.json
