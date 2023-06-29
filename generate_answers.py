@@ -61,7 +61,7 @@ def loadQuestions():
 def loadIndex():
     # Load the json file indexFile
     indexes = {}
-    if args.index:
+    if args.index and os.path.exists(indexFile):
         with open(indexFile, "r") as file:
             indexes = json.load(file)
     return indexes
